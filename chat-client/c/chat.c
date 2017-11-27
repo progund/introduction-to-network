@@ -72,7 +72,7 @@ static int open_socket(chat_client* cc)
       return CHAT_CLIENT_SETUP_FAILED;
     }
   
-  /* socket: create the socket */
+  /* Create the socket (store in cc) */
   cc->sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (cc->sockfd < 0)
     {
@@ -81,7 +81,7 @@ static int open_socket(chat_client* cc)
       return CHAT_CLIENT_COULD_NOT_OPEN_SOCKET;
     }
   
-  /* gethostbyname: get the server's DNS entry */
+  /* Find DNS entry for server */
   cc->server = gethostbyname(cc->host_name);
   if (cc->server == NULL)
     {
@@ -90,7 +90,7 @@ static int open_socket(chat_client* cc)
       return CHAT_CLIENT_COULD_NOT_OPEN_SOCKET;
     }
     
-  /* build the server's Internet address */
+  /* build address */
   bzero((char *) &cc->serveraddr, sizeof(cc->serveraddr));
   cc->serveraddr.sin_family = AF_INET;
   bcopy((char *)cc->server->h_addr, 
@@ -98,7 +98,7 @@ static int open_socket(chat_client* cc)
         (size_t)cc->server->h_length);
   cc->serveraddr.sin_port = htons((short unsigned int)cc->port);
 
-  /* connect: create a connection with the server */
+  /* connect to server */
   if (connect(cc->sockfd,
               (struct sockaddr *)&(cc->serveraddr),
               sizeof(cc->serveraddr)) < 0)
@@ -108,7 +108,6 @@ static int open_socket(chat_client* cc)
       return CHAT_CLIENT_COULD_NOT_OPEN_SOCKET;
     }
 
-  //  FD_ZERO(&master);
   FD_ZERO(&(cc->read_fds));
     
   cc->nfds = (unsigned int)cc->sockfd +2;
