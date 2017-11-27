@@ -154,7 +154,7 @@ int chat_loop(chat_client *cc)
 
       if (FD_ISSET(cc->sockfd, &(cc->read_fds)))
         {
-          /* print the server's reply */
+          /* read from server */
           bzero(buf, BUF_SIZE);
           bytes = (int)read(cc->sockfd, buf, BUF_SIZE);
           if (bytes < 0)
@@ -163,6 +163,7 @@ int chat_loop(chat_client *cc)
             }
           if (bytes == 0)
             {
+              /* inform listener */
               cc->feedback("Leaving since user typed 'bye'");
               return CHAT_CLIENT_LEAVE;
             }
@@ -170,8 +171,8 @@ int chat_loop(chat_client *cc)
         }
       else
         {
+          /* read from stdin */
           bzero(buf, BUF_SIZE);
-          
           fgets(buf, BUF_SIZE, stdin);
           
           ret = chat_handle_input(cc, buf);
