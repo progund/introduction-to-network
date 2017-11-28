@@ -164,7 +164,7 @@ int chat_loop(chat_client *cc)
           if (bytes == 0)
             {
               /* inform listener */
-              cc->feedback("Leaving since user typed 'bye'");
+              cc->feedback("Leaving .. (most likely since user typed 'bye')");
               return CHAT_CLIENT_LEAVE;
             }
           cc->feedback(buf);
