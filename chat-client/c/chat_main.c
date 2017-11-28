@@ -47,11 +47,6 @@ int main(int argc, char **argv) {
    * Use our own feedback function
    */
   chat_set_feedback_fun(&cc, feedback);
-  if (ret!=CHAT_CLIENT_OK)
-    {
-      fprintf(stderr, "Failed initialising the client\n");
-      return 1;
-    }
   
   /*
    * Enter chat - loop until bye or quit
