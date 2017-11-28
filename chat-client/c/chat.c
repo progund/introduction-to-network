@@ -189,7 +189,7 @@ int chat_loop(chat_client *cc)
 /*
  * internal macro for checking strings
  */
-#define COMP_STR(a,b) strncmp(a, b, strlen(a))
+#define COMP_STR(a,b) strncmp(a, b, strlen(a))==0
 
 /*
  *
@@ -205,7 +205,7 @@ int chat_handle_input(chat_client *cc, char *msg)
       return CHAT_CLIENT_BAD_ARG;
     }
 
-  if (COMP_STR(".quit", msg)==0)
+  if (COMP_STR(".quit", msg))
     {
       return CHAT_CLIENT_LEAVE;
     }
