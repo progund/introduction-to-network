@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
   chat_loop(&cc);
   if (ret!=CHAT_CLIENT_OK)
     {
-      fprintf(stderr, "Failed initialising the client\n");
+      fprintf(stderr, "Chat failed for some reason\n");
       return 1;
     }
 
